@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenLocal()
+    maven {
+        url 'https://maven.aliyun.com/repository/public/'
+    }
+    maven {
+        url 'https://maven.aliyun.com/repository/google/'
+    }
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.activiti:activiti-spring-boot-starter:7.1.0.M6'
+    testImplementation 'com.h2database:h2:2.1.214'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.8'
+}
+
+test {
+    useJUnitPlatform()
+}
