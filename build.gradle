@@ -18,10 +18,10 @@ repositories {
 
 dependencies {
     implementation 'org.activiti:activiti-spring-boot-starter:7.1.0.M6'
-    testImplementation 'com.h2database:h2:2.1.214'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    implementation 'com.h2database:h2:2.1.214'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.8'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
 }
 
 test {
