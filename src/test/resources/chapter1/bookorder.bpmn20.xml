@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" 
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+			 xmlns:activiti="http://activiti.org/bpmn"
 		targetNamespace="http://www.bpmnwithactiviti.org">
 		
 	<process id="bookorder" name="Order book">
@@ -11,7 +12,7 @@
 			</script>
 		</scriptTask>
 		<sequenceFlow id="sequenceflow2" name="Sending to sales" sourceRef="scripttask1" targetRef="usertask1"/>
-		<userTask id="usertask1" name="Work on order">
+		<userTask id="usertask1" name="Work on order" activiti:assignee="${authenticatedUserId}">
 			<documentation>book order user task</documentation>
 			<potentialOwner>
 				<resourceAssignmentExpression>

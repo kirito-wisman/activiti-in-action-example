@@ -8,6 +8,7 @@ import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.impl.identity.Authentication;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.bpmnwithactiviti.CommonUtils;
@@ -24,6 +25,7 @@ public class BookOrderTest {
 
         RepositoryService repositoryService = processEngine.getRepositoryService();
         RuntimeService runtimeService = processEngine.getRuntimeService();
+        // activiti7 已移除 IdentityService
 //        IdentityService identityService = processEngine.getIdentityService();
         TaskService taskService = processEngine.getTaskService();
         repositoryService.createDeployment()
@@ -38,12 +40,17 @@ public class BookOrderTest {
 
         Map<String, Object> variableMap = new HashMap<>();
         variableMap.put("isbn", "123456");
-//        identityService.setAuthenticatedUserId("kermit");
+        // 可以替代IdentityService.setAuthenticatedUserId
+        Authentication.setAuthenticatedUserId("kermit");
         ProcessInstance processInstance = runtimeService
                 .startProcessInstanceByKey("bookorder", variableMap);
         assertNotNull(processInstance.getId());
         List<Task> taskList = taskService.createTaskQuery().taskName("Work on order").list();
         assertEquals(1, taskList.size());
+
+        taskList = taskService.createTaskQuery().taskAssignee("kermit").list();
+        assertEquals(1, taskList.size());
+
         System.out.println("found task " + taskList.get(0).getName());
     }
 }
